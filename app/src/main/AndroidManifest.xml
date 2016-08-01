@@ -16,19 +16,10 @@
             </intent-filter>
         </activity>
 
-        <receiver
-            android:name=".startListening"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.SCREEN_OFF" />
-            </intent-filter>
-        </receiver>
-
         <service
             android:name=".screenOff"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
     </application>
 
 </manifest>

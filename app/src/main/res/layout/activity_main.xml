@@ -9,8 +9,54 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.hptouchsmart.phonedown.MainActivity">
 
-    <TextView
+
+    <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:text="Music"
+        android:id="@+id/checkBox_music"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="58dp"
+        android:checked="true"
+        />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ringtone"
+        android:id="@+id/checkBox_ringtoone"
+        android:layout_below="@+id/checkBox_music"
+        android:layout_alignStart="@+id/checkBox_music"
+        android:checked="false" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Alarm"
+        android:id="@+id/checkBox_alarm"
+        android:layout_below="@+id/checkBox_ringtoone"
+        android:layout_alignStart="@+id/checkBox_ringtoone" />
+
+    <Button
+        android:layout_margin="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/checkBox_alarm"
+        android:layout_centerHorizontal="true"
+        android:text="start Flip Phone"
+        android:id="@+id/start_button"/>
+    <Button
+
+        android:layout_margin="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/start_button"
+        android:layout_centerHorizontal="true"
+        android:text="Stop"
+        android:id="@+id/stop_button"
+        />
+
+
+
 </RelativeLayout>
