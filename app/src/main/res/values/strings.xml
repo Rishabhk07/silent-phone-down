@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Phone Down</string>
+    <string name="drawer_open">drawer open</string>
+    <string name="drawer_close">drawer close</string>
 </resources>
