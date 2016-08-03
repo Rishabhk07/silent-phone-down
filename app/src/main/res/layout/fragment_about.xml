@@ -4,10 +4,70 @@
     android:layout_height="match_parent"
     tools:context="com.example.hptouchsmart.phonedown.AboutFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+
     <TextView
+        android:layout_marginTop="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Silent Flip is utility app which  silents\n the music , ringtone or alarm volume \n regardless the app is open or closed"
+        android:textColor="#323232"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:id="@+id/TextView"
+        android:layout_gravity="center_horizontal"
+        />
+
+    <View
+
+        android:layout_margin="30dp"
+        android:id="@+id/view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="2dp"
+        android:background="#323232"
+        android:layout_alignParentStart="true"
+
+         />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Developers Info"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#323232"
+        />
+
+    <TextView
+        android:layout_marginTop="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rishabh Khanna"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#323232"
+        />
+    <TextView
+        android:layout_marginTop="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="(B.Tech , JIIT-62)"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#323232"
+        />
+
+
+
+
+
+</LinearLayout>
 
 </FrameLayout>
