@@ -3,12 +3,36 @@
 
     <group android:checkableBehavior="single">
 
+        <!--<item-->
+            <!--android:id="@+id/Music"-->
+            <!--android:icon="@drawable/music"-->
+            <!--android:title="Music"-->
+
+            <!--/>-->
+        <!--<item-->
+            <!--android:id="@+id/Ringtone"-->
+            <!--android:icon="@drawable/phone"-->
+            <!--android:title="Ringtone"-->
+            <!--/>-->
+        <!--<item-->
+        <!--android:id="@+id/alarm"-->
+        <!--android:icon="@drawable/alarm"-->
+        <!--android:title="Alarm"-->
+        <!--/>-->
         <item
-            android:id="@+id/setting"
-            android:title="setting"
+            android:id="@+id/home"
+            android:icon="@drawable/home"
+            android:title="Home"
             />
         <item
-            android:id="@+id/About"
+            android:id="@+id/setting"
+            android:icon="@drawable/setting"
+            android:title="Settings"
+            />
+
+        <item
+            android:id="@+id/about"
+            android:icon="@drawable/about"
             android:title="About"
             />
     </group>

@@ -10,6 +10,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.media.AudioManager;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -46,7 +47,7 @@ public class screenOff extends Service implements SensorEventListener {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG ,"Service fired");
 
-        SharedPreferences sharedPreferences = getSharedPreferences("PhoneDown", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         music = sharedPreferences.getBoolean("MUSIC" , false);
         ringtone = sharedPreferences.getBoolean("RINGTONE" , false);
         alarm = sharedPreferences.getBoolean("ALARM" , false);

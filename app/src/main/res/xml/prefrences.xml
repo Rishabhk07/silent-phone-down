@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+   <PreferenceCategory
+       android:title="Music"
+       android:icon="@drawable/music"
+
+       >
+    <CheckBoxPreference
+        android:key="MUSIC"
+        android:title="Music Flip"
+        android:summary="silents phone music when phone is flipped"
+        android:defaultValue="true"
+        />
+
+   </PreferenceCategory>
+    <PreferenceCategory
+        android:title="Ringtone"
+        android:icon="@drawable/phone"
+        >
+        <CheckBoxPreference
+            android:key="RINGTONE"
+            android:title=" Silent Ringtone Flip"
+            android:summary="silents phone ringtone when phone is flipped "
+            android:defaultValue="true"
+            />
+        <CheckBoxPreference
+            android:key="RINGTONE_RECOVERY"
+            android:title="Ringtone Recover"
+            android:summary="Ringtone will recover to original setting when call is ended"
+            android:defaultValue="true"
+            />
+
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="Alarm"
+        android:icon="@drawable/alarm"
+        >
+        <CheckBoxPreference
+            android:key="ALARM"
+            android:title="Alarm Flip"
+            android:summary="silents phone alarm when phone is flipped"
+            android:defaultValue="true"
+            />
+
+        <CheckBoxPreference
+            android:key="ALARM_RECOVERY"
+            android:title="Alarm Volume Recovery"
+            android:summary="alarm volume will recover to original setting when phone to fliped back"
+            android:defaultValue="false"
+            />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
