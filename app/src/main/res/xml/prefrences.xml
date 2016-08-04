@@ -25,12 +25,12 @@
             android:summary="silents phone ringtone when phone is flipped "
             android:defaultValue="true"
             />
-        <CheckBoxPreference
-            android:key="RINGTONE_RECOVERY"
-            android:title="Ringtone Recover"
-            android:summary="Ringtone will recover to original setting when call is ended"
-            android:defaultValue="true"
-            />
+        <!--<CheckBoxPreference-->
+            <!--android:key="RINGTONE_RECOVERY"-->
+            <!--android:title="Ringtone Recover"-->
+            <!--android:summary="Ringtone will recover to original setting when call is ended"-->
+            <!--android:defaultValue="true"-->
+            <!--/>-->
 
     </PreferenceCategory>
     <PreferenceCategory
@@ -47,7 +47,7 @@
         <CheckBoxPreference
             android:key="ALARM_RECOVERY"
             android:title="Alarm Volume Recovery"
-            android:summary="alarm volume will recover to original setting when phone to fliped back"
+            android:summary="alarm volume will recover to original setting when phone to fliped back ( if original setting before starting flip silent of alarm volume is silent then alarm will be silent)"
             android:defaultValue="false"
             />
 

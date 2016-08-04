@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.hptouchsmart.phonedown">
 
+
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -21,16 +24,6 @@
             android:enabled="true"
             android:exported="true" />
 
-        <receiver
-            android:name=".MyReceiver"
-            android:enabled="true"
-            android:exported="true"
-            >
-            <intent-filter>
-                <action android:name="android.intent.action.PHONE_STATE" ></action>
-            </intent-filter>
-
-        </receiver>
     </application>
 
 </manifest>

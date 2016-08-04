@@ -20,9 +20,13 @@ public class screenOff extends Service implements SensorEventListener {
     boolean ringtone;
     boolean alarm;
     boolean flag = true;
+    boolean alarm_recovery = true;
     SharedPreferences sharedPreferences;
     public  int ringVolume ;
     public int alarmVolume;
+    AudioManager audioManager;
+    boolean alarmFlipActive = false;
+
 
     public static final String TAG = "TAG";
     BroadcastReceiver broadcastReceiver;
@@ -49,11 +53,13 @@ public class screenOff extends Service implements SensorEventListener {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG ,"Service fired");
+        Toast.makeText(screenOff.this, "Silent Flip ON", Toast.LENGTH_SHORT).show();
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         music = sharedPreferences.getBoolean("MUSIC" , false);
         ringtone = sharedPreferences.getBoolean("RINGTONE" , false);
         alarm = sharedPreferences.getBoolean("ALARM" , false);
+        alarm_recovery = sharedPreferences.getBoolean("ALARM_RECOVERY" , false);
 
         Log.d("MUSIC" , "value : " + music );
         Log.d("RINGTONE" , "value : " + ringtone );
@@ -67,6 +73,17 @@ public class screenOff extends Service implements SensorEventListener {
         Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         sensorManager.registerListener(this , sensor, SensorManager.SENSOR_DELAY_NORMAL);
 
+        AudioManager audioManager;
+
+        audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+
+        alarmVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
+        ringVolume = audioManager.getStreamVolume(AudioManager.STREAM_RING);
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("RING_VOLUME" , ringVolume);
+        editor.commit();
+
 
         return START_STICKY;
     }
@@ -74,18 +91,22 @@ public class screenOff extends Service implements SensorEventListener {
     @Override
     public void onSensorChanged(SensorEvent event) {
 
-        AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
 //
 //        Log.d("MUSIC" , "value : " + music );
 //        Log.d("RINGTONE" , "value : " + ringtone );
 //        Log.d("ALARM" , "value : " + alarm );
+        audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         boolean check = sharedPreferences.getBoolean("CHECK" , false);
+
+
+
         if(check){
             music = sharedPreferences.getBoolean("MUSIC" , false);
             ringtone = sharedPreferences.getBoolean("RINGTONE" , false);
             alarm = sharedPreferences.getBoolean("ALARM" , false);
+            alarm_recovery = sharedPreferences.getBoolean("ALARM_RECOVERY" , false);
         }
 
 
@@ -97,19 +118,27 @@ public class screenOff extends Service implements SensorEventListener {
             }
             if(ringtone == true){
 
-               ringVolume =  audioManager.getStreamVolume(AudioManager.STREAM_RING);
-
+//                SharedPreferences.Editor editor = sharedPreferences.edit();
+//                editor.putBoolean("RING_FLIPPED"  , true);
+//                editor.commit();
                 audioManager.setStreamVolume(AudioManager.STREAM_RING, 0, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
 
             }
             if(alarm == true){
-                alarmVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
+
+                alarmFlipActive = true;
+
                 audioManager.setStreamVolume(AudioManager.STREAM_ALARM , 0, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+
+
             }
         }
-        if(event.values[2] > 8 && flag){
-            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC ,audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC) , AudioManager.FLAG_PLAY_SOUND);
+
+        if(event.values[2] > 8 && flag && alarmFlipActive && alarm_recovery){
+            audioManager.setStreamVolume(AudioManager.STREAM_ALARM , alarmVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+            alarmFlipActive = false;
         }
+
 
     }
 
@@ -121,7 +150,7 @@ public class screenOff extends Service implements SensorEventListener {
     @Override
     public void onDestroy() {
         Log.d(TAG , "Service Destroyed");
-        Toast.makeText(screenOff.this, "service Destroyed !! ", Toast.LENGTH_SHORT).show();
+        Toast.makeText(screenOff.this, "Silent Flip OFF ", Toast.LENGTH_SHORT).show();
         flag = false;
         super.onDestroy();
 

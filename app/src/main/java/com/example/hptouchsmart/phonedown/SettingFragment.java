@@ -18,7 +18,6 @@ public class SettingFragment extends PreferenceFragment {
         Log.d("TAG" , "setting fragment called ");
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("START_CHECK" , false);
         editor.putBoolean("CHECK"  , true);
         editor.commit();
 
