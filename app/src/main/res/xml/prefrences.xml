@@ -13,6 +13,12 @@
         android:summary="silents phone music when phone is flipped"
         android:defaultValue="true"
         />
+       <CheckBoxPreference
+           android:key="MUSIC_REC"
+           android:title="Music Volume Recover"
+           android:summary="music volume  will return to its original setting when phone is flipped back (face up)"
+           android:defaultValue="true"
+           />
 
    </PreferenceCategory>
     <PreferenceCategory
@@ -47,7 +53,7 @@
         <CheckBoxPreference
             android:key="ALARM_RECOVERY"
             android:title="Alarm Volume Recovery"
-            android:summary="alarm volume will recover to original setting when phone to fliped back ( if original setting before starting flip silent of alarm volume is silent then alarm will be silent)"
+            android:summary="alarm volume will return to original setting when phone to fliped back (face up)"
             android:defaultValue="false"
             />
 

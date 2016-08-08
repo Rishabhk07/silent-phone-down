@@ -22,11 +22,14 @@ public class screenOff extends Service implements SensorEventListener {
     boolean alarm;
     boolean flag = true;
     boolean alarm_recovery = true;
+    boolean music_recover ;
     SharedPreferences sharedPreferences;
     public  int ringVolume ;
     public int alarmVolume;
+    public int musicVolume;
     AudioManager audioManager;
     boolean alarmFlipActive = false;
+    boolean musicFlipActive = false;
 
 
     public static final String TAG = "TAG";
@@ -63,6 +66,8 @@ public class screenOff extends Service implements SensorEventListener {
         ringtone = sharedPreferences.getBoolean("RINGTONE" , false);
         alarm = sharedPreferences.getBoolean("ALARM" , false);
         alarm_recovery = sharedPreferences.getBoolean("ALARM_RECOVERY" , false);
+        music_recover = sharedPreferences.getBoolean("MUSIC_REC" , false);
+
 
         Log.d("MUSIC" , "value : " + music );
         Log.d("RINGTONE" , "value : " + ringtone );
@@ -82,6 +87,7 @@ public class screenOff extends Service implements SensorEventListener {
 
         alarmVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
         ringVolume = audioManager.getStreamVolume(AudioManager.STREAM_RING);
+        musicVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt("RING_VOLUME" , ringVolume);
@@ -121,6 +127,7 @@ public class screenOff extends Service implements SensorEventListener {
             ringtone = sharedPreferences.getBoolean("RINGTONE" , false);
             alarm = sharedPreferences.getBoolean("ALARM" , false);
             alarm_recovery = sharedPreferences.getBoolean("ALARM_RECOVERY" , false);
+            music_recover = sharedPreferences.getBoolean("MUSIC_REC", false);
         }
 
 
@@ -128,6 +135,10 @@ public class screenOff extends Service implements SensorEventListener {
             //Log.d(TAG," on sensor changed z less than -8");
 
             if(music == true) {
+                if (audioManager.getStreamVolume(AudioManager.STREAM_MUSIC) > 0) {
+                    musicVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+                }
+                musicFlipActive = true;
                 audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
             }
             if(ringtone == true){
@@ -140,8 +151,11 @@ public class screenOff extends Service implements SensorEventListener {
             }
             if(alarm == true){
 
-                alarmFlipActive = true;
+                if(audioManager.getStreamVolume(AudioManager.STREAM_ALARM) > 0){
+                    alarmVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
+                }
 
+                alarmFlipActive = true;
                 audioManager.setStreamVolume(AudioManager.STREAM_ALARM , 0, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
 
 
@@ -149,8 +163,12 @@ public class screenOff extends Service implements SensorEventListener {
         }
 
         if(event.values[2] > 8 && flag && alarmFlipActive && alarm_recovery){
-            audioManager.setStreamVolume(AudioManager.STREAM_ALARM , alarmVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+            audioManager.setStreamVolume(AudioManager.STREAM_ALARM , alarmVolume, AudioManager.FLAG_SHOW_UI);
             alarmFlipActive = false;
+        }
+        if(event.values[2] > 8 && flag && musicFlipActive && music_recover){
+            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC , musicVolume , AudioManager.FLAG_SHOW_UI);
+            musicFlipActive = false;
         }
 
 
