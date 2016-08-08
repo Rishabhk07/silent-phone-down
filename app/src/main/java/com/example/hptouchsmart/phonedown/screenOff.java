@@ -162,11 +162,11 @@ public class screenOff extends Service implements SensorEventListener {
         }
 
         if(event.values[2] > 9 && flag && alarmFlipActive && alarm_recovery){
-            audioManager.setStreamVolume(AudioManager.STREAM_ALARM , alarmVolume, AudioManager.FLAG_SHOW_UI);
+            audioManager.setStreamVolume(AudioManager.STREAM_ALARM , alarmVolume, 0);
             alarmFlipActive = false;
         }
         if(event.values[2] > 9 && flag && musicFlipActive && music_recover){
-            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC , musicVolume , AudioManager.FLAG_SHOW_UI);
+            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC , musicVolume , 0);
             musicFlipActive = false;
         }
 
