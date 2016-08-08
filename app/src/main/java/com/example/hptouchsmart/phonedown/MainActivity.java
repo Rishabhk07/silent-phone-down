@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     HomeFragment homeFragment;
     AboutFragment aboutFragment;
     android.app.FragmentTransaction fragmentTransaction;
+    int state = 0;
 
 
     @Override
@@ -75,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
                             getSupportActionBar().setTitle("Silent Flip");
                             item.setChecked(true);
                             drawerLayout.closeDrawers();
-
+                            state = 0;
                             break;
 
                         case R.id.setting:
@@ -86,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                             getSupportActionBar().setTitle("Settings");
                             item.setChecked(true);
                             drawerLayout.closeDrawers();
-
+                            state = 1;
                             break;
 
                         case R.id.about:
@@ -97,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                             getSupportActionBar().setTitle("About");
                             item.setChecked(true);
                             drawerLayout.closeDrawers();
-
+                            state = 2;
                             break;
 
 
@@ -119,7 +120,15 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
        Log.d("TAG" , "onResume called !! ");
         fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.FragementFrame , homeFragment , null);
+        if(state == 0) {
+            fragmentTransaction.replace(R.id.FragementFrame, homeFragment, null);
+        }
+        if(state == 1) {
+            fragmentTransaction.replace(R.id.FragementFrame, settingFragment, null);
+        }
+        if(state == 2) {
+            fragmentTransaction.replace(R.id.FragementFrame, aboutFragment, null);
+        }
         fragmentTransaction.commit();
 
     }
@@ -130,4 +139,6 @@ public class MainActivity extends AppCompatActivity {
         // Sync the toggle state after onRestoreInstanceState has occurred.
         actionBarDrawerToggle.syncState();
     }
+
+
 }

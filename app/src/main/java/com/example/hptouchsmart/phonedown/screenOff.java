@@ -10,6 +10,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.media.AudioManager;
 import android.os.IBinder;
+import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -31,6 +32,8 @@ public class screenOff extends Service implements SensorEventListener {
     public static final String TAG = "TAG";
     BroadcastReceiver broadcastReceiver;
     SensorManager sensorManager;
+
+    long currentTime ;
     public screenOff() {
     }
 
@@ -84,6 +87,8 @@ public class screenOff extends Service implements SensorEventListener {
         editor.putInt("RING_VOLUME" , ringVolume);
         editor.commit();
 
+        currentTime = SystemClock.uptimeMillis();
+
 
         return START_STICKY;
     }
@@ -95,6 +100,15 @@ public class screenOff extends Service implements SensorEventListener {
 //        Log.d("MUSIC" , "value : " + music );
 //        Log.d("RINGTONE" , "value : " + ringtone );
 //        Log.d("ALARM" , "value : " + alarm );
+
+        if((SystemClock.uptimeMillis() - currentTime) > 1000){
+            currentTime = SystemClock.uptimeMillis();
+            Log.d("x : " , "" +event.values[0]);
+            Log.d("y : " , "" +event.values[1]);
+            Log.d("z : " , "" +event.values[2]);
+        }
+
+
         audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -110,8 +124,8 @@ public class screenOff extends Service implements SensorEventListener {
         }
 
 
-        if(event.values[2] < -8 && flag){
-//            Log.d(TAG," on sensor changed z value changed ");
+        if(event.values[2] < -9 && flag){
+            //Log.d(TAG," on sensor changed z less than -8");
 
             if(music == true) {
                 audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
