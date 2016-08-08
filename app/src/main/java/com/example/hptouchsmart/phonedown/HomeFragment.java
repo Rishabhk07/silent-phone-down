@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -59,6 +60,8 @@ public class HomeFragment extends android.app.Fragment {
                     editor.putBoolean("START_CHECK" , true);
                     editor.commit();
                     Log.d("TAG" , "checked changed !! true" );
+                    Snackbar snackbar = Snackbar.make(homeView , "Silent Flip ON" , Snackbar.LENGTH_SHORT);
+                    snackbar.show();
                 }else{
 
                     Intent i = new Intent(getActivity() , screenOff.class );
@@ -67,9 +70,9 @@ public class HomeFragment extends android.app.Fragment {
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putBoolean("START_CHECK" , false);
                     editor.commit();
-
+                    Snackbar snackbar = Snackbar.make(homeView , "Silent Flip OFF" , Snackbar.LENGTH_SHORT);
                     Log.d("TAG" , "checked changed !! false" );
-
+                    snackbar.show();
                 }
             }
         });

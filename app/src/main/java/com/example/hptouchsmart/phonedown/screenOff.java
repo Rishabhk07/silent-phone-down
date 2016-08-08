@@ -13,7 +13,6 @@ import android.os.IBinder;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.widget.Toast;
 
 public class screenOff extends Service implements SensorEventListener {
 
@@ -59,7 +58,7 @@ public class screenOff extends Service implements SensorEventListener {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG ,"Service fired");
-        Toast.makeText(screenOff.this, "Silent Flip ON", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(screenOff.this, "Silent Flip ON", Toast.LENGTH_SHORT).show();
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         music = sharedPreferences.getBoolean("MUSIC" , false);
@@ -162,11 +161,11 @@ public class screenOff extends Service implements SensorEventListener {
             }
         }
 
-        if(event.values[2] > 8 && flag && alarmFlipActive && alarm_recovery){
+        if(event.values[2] > 9 && flag && alarmFlipActive && alarm_recovery){
             audioManager.setStreamVolume(AudioManager.STREAM_ALARM , alarmVolume, AudioManager.FLAG_SHOW_UI);
             alarmFlipActive = false;
         }
-        if(event.values[2] > 8 && flag && musicFlipActive && music_recover){
+        if(event.values[2] > 9 && flag && musicFlipActive && music_recover){
             audioManager.setStreamVolume(AudioManager.STREAM_MUSIC , musicVolume , AudioManager.FLAG_SHOW_UI);
             musicFlipActive = false;
         }
@@ -182,7 +181,7 @@ public class screenOff extends Service implements SensorEventListener {
     @Override
     public void onDestroy() {
         Log.d(TAG , "Service Destroyed");
-        Toast.makeText(screenOff.this, "Silent Flip OFF ", Toast.LENGTH_SHORT).show();
+       // Toast.makeText(screenOff.this, "Silent Flip OFF ", Toast.LENGTH_SHORT).show();
         flag = false;
         super.onDestroy();
 
