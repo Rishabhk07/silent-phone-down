@@ -29,6 +29,9 @@ public class screenOff extends Service implements SensorEventListener {
     AudioManager audioManager;
     boolean alarmFlipActive = false;
     boolean musicFlipActive = false;
+    boolean ringFlipActive = false;
+    long duration;
+    long current;
 
 
     public static final String TAG = "TAG";
@@ -127,6 +130,7 @@ public class screenOff extends Service implements SensorEventListener {
             alarm = sharedPreferences.getBoolean("ALARM" , false);
             alarm_recovery = sharedPreferences.getBoolean("ALARM_RECOVERY" , false);
             music_recover = sharedPreferences.getBoolean("MUSIC_REC", false);
+            duration = Long.parseLong(sharedPreferences.getString("RING_REC", "10000"));
         }
 
 
@@ -145,7 +149,12 @@ public class screenOff extends Service implements SensorEventListener {
 //                SharedPreferences.Editor editor = sharedPreferences.edit();
 //                editor.putBoolean("RING_FLIPPED"  , true);
 //                editor.commit();
+                if(audioManager.getStreamVolume(AudioManager.STREAM_RING) > 0 ){
+                    ringVolume = audioManager.getStreamVolume(AudioManager.STREAM_RING);
+                }
+                current = SystemClock.uptimeMillis();
                 audioManager.setStreamVolume(AudioManager.STREAM_RING, 0, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                ringFlipActive = true;
 
             }
             if(alarm == true){
@@ -153,6 +162,8 @@ public class screenOff extends Service implements SensorEventListener {
                 if(audioManager.getStreamVolume(AudioManager.STREAM_ALARM) > 0){
                     alarmVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
                 }
+
+
 
                 alarmFlipActive = true;
                 audioManager.setStreamVolume(AudioManager.STREAM_ALARM , 0, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
@@ -168,6 +179,12 @@ public class screenOff extends Service implements SensorEventListener {
         if(event.values[2] > 9 && flag && musicFlipActive && music_recover){
             audioManager.setStreamVolume(AudioManager.STREAM_MUSIC , musicVolume , 0);
             musicFlipActive = false;
+        }
+        if(((SystemClock.uptimeMillis() - current) > duration) && ringFlipActive && flag ){
+
+            audioManager.setStreamVolume(AudioManager.STREAM_RING , ringVolume , 0);
+            ringFlipActive = false;
+
         }
 
 

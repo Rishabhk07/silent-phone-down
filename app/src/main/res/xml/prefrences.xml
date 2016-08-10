@@ -18,6 +18,7 @@
            android:title="Music Volume Recover"
            android:summary="music volume  will return to its original setting when phone is flipped back (face up)"
            android:defaultValue="true"
+           android:dependency="MUSIC"
            />
 
    </PreferenceCategory>
@@ -27,7 +28,7 @@
         >
         <CheckBoxPreference
             android:key="RINGTONE"
-            android:title=" Silent Ringtone Flip"
+            android:title="Silent Ringtone Flip"
             android:summary="silents phone ringtone when phone is flipped "
             android:defaultValue="true"
             />
@@ -37,6 +38,17 @@
             <!--android:summary="Ringtone will recover to original setting when call is ended"-->
             <!--android:defaultValue="true"-->
             <!--/>-->
+        <ListPreference
+            android:key="RING_REC"
+            android:title="Ringer volume recovery"
+            android:entries="@array/time_names"
+            android:entryValues="@array/time_values"
+            android:summary="ringtone volume will return to original setting after defined time"
+            android:dialogTitle="enter the time"
+            android:defaultValue="10000"
+            android:dependency="RINGTONE"
+
+            />
 
     </PreferenceCategory>
     <PreferenceCategory
@@ -55,6 +67,7 @@
             android:title="Alarm Volume Recovery"
             android:summary="alarm volume will return to original setting when phone to fliped back (face up)"
             android:defaultValue="false"
+            android:dependency="ALARM"
             />
 
     </PreferenceCategory>
