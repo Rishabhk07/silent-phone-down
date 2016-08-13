@@ -18,7 +18,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textColor="#323232"
-            android:text="Flip your Phone to Silent \n Music , Ringtone or alarm \n \n Select from Settings"
+            android:text="Flip your Phone (Face Down) to Silent \n Music , Ringtone or alarm \n \n Select from Settings"
             android:textAlignment="center"
             android:layout_marginTop="80dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
