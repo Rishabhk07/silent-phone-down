@@ -45,7 +45,7 @@
             android:entryValues="@array/time_values"
             android:summary="ringtone volume will return to original setting after defined time"
             android:dialogTitle="enter the time"
-            android:defaultValue="10000"
+            android:defaultValue="300000"
             android:dependency="RINGTONE"
 
             />

@@ -130,7 +130,7 @@ public class screenOff extends Service implements SensorEventListener {
             alarm = sharedPreferences.getBoolean("ALARM" , false);
             alarm_recovery = sharedPreferences.getBoolean("ALARM_RECOVERY" , false);
             music_recover = sharedPreferences.getBoolean("MUSIC_REC", false);
-            duration = Long.parseLong(sharedPreferences.getString("RING_REC", "10000"));
+            duration = Long.parseLong(sharedPreferences.getString("RING_REC", "300000"));
         }
 
 
