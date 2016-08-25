@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "TAG";
 
-
+    boolean DEBUG = false;
     public static final String MUSIC_ = "music";
     public static final String RINGTONE_ = "ringtone";
     public static final String ALARM_ = "alarm";
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                             fragmentTransaction = getFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.FragementFrame , homeFragment , null);
                             fragmentTransaction.commit();
-                            Log.d("TAG"  , "home Called");
+                            if(DEBUG)Log.d("TAG"  , "home Called");
                             getSupportActionBar().setTitle("Silent Flip");
                             item.setChecked(true);
                             drawerLayout.closeDrawers();
@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-       Log.d("TAG" , "onResume called !! ");
+      if (DEBUG) Log.d("TAG" , "onResume called !! ");
         fragmentTransaction = getFragmentManager().beginTransaction();
         if(state == 0) {
             fragmentTransaction.replace(R.id.FragementFrame, homeFragment, null);

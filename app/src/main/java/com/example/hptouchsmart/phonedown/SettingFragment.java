@@ -11,11 +11,12 @@ import android.util.Log;
  */
 public class SettingFragment extends PreferenceFragment {
 
+    boolean DEBUG = false;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.prefrences);
-        Log.d("TAG" , "setting fragment called ");
+        if(DEBUG)Log.d("TAG" , "setting fragment called ");
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean("CHECK"  , true);

@@ -16,6 +16,7 @@ import android.util.Log;
 
 public class screenOff extends Service implements SensorEventListener {
 
+    boolean DEBUG = false;
     boolean music;
     boolean ringtone;
     boolean alarm;
@@ -55,12 +56,12 @@ public class screenOff extends Service implements SensorEventListener {
 
 
 
-        Log.d(TAG , "Service oncreate called !! ");
+       if(DEBUG) Log.d(TAG , "Service oncreate called !! ");
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d(TAG ,"Service fired");
+        if(DEBUG)Log.d(TAG ,"Service fired");
         //Toast.makeText(screenOff.this, "Silent Flip ON", Toast.LENGTH_SHORT).show();
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -70,10 +71,11 @@ public class screenOff extends Service implements SensorEventListener {
         alarm_recovery = sharedPreferences.getBoolean("ALARM_RECOVERY" , false);
         music_recover = sharedPreferences.getBoolean("MUSIC_REC" , false);
 
-
+        if(DEBUG){
         Log.d("MUSIC" , "value : " + music );
         Log.d("RINGTONE" , "value : " + ringtone );
         Log.d("ALARM" , "value : " + alarm );
+        }
 
         flag = true;
 
@@ -111,9 +113,11 @@ public class screenOff extends Service implements SensorEventListener {
 
         if((SystemClock.uptimeMillis() - currentTime) > 1000){
             currentTime = SystemClock.uptimeMillis();
-            Log.d("x : " , "" +event.values[0]);
-            Log.d("y : " , "" +event.values[1]);
-            Log.d("z : " , "" +event.values[2]);
+            if(DEBUG) {
+                Log.d("x : ", "" + event.values[0]);
+                Log.d("y : ", "" + event.values[1]);
+                Log.d("z : ", "" + event.values[2]);
+            }
         }
 
 
@@ -197,7 +201,7 @@ public class screenOff extends Service implements SensorEventListener {
 
     @Override
     public void onDestroy() {
-        Log.d(TAG , "Service Destroyed");
+       if(DEBUG) Log.d(TAG , "Service Destroyed");
        // Toast.makeText(screenOff.this, "Silent Flip OFF ", Toast.LENGTH_SHORT).show();
         flag = false;
         super.onDestroy();

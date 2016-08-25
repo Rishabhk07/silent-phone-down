@@ -20,7 +20,7 @@ import android.widget.ToggleButton;
  */
 public class HomeFragment extends android.app.Fragment {
 
-
+    boolean DEBUG = false;
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -39,14 +39,15 @@ public class HomeFragment extends android.app.Fragment {
 
         if(stateCheck){
             toggleButton.setChecked(true);
-            Log.d("TAG" , "boolean true");
+           if(DEBUG) Log.d("TAG" , "boolean true");
+
         }else{
             toggleButton.setChecked(false);
-            Log.d("TAG" , "boolean false");
+            if(DEBUG) Log.d("TAG" , "boolean false");
 
         }
 
-        Log.d("TAG" , "Home Fragment Called !!");
+        if(DEBUG) Log.d("TAG" , "Home Fragment Called !!");
         homeView.requestLayout();
 
         toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -59,7 +60,7 @@ public class HomeFragment extends android.app.Fragment {
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putBoolean("START_CHECK" , true);
                     editor.commit();
-                    Log.d("TAG" , "checked changed !! true" );
+                    if(DEBUG) Log.d("TAG" , "checked changed !! true" );
                     Snackbar snackbar = Snackbar.make(homeView , "Silent Flip ON" , Snackbar.LENGTH_SHORT);
                     snackbar.show();
                 }else{
@@ -71,7 +72,7 @@ public class HomeFragment extends android.app.Fragment {
                     editor.putBoolean("START_CHECK" , false);
                     editor.commit();
                     Snackbar snackbar = Snackbar.make(homeView , "Silent Flip OFF" , Snackbar.LENGTH_SHORT);
-                    Log.d("TAG" , "checked changed !! false" );
+                    if(DEBUG) Log.d("TAG" , "checked changed !! false" );
                     snackbar.show();
                 }
             }
