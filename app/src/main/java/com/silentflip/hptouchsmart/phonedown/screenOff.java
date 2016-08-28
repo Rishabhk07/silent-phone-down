@@ -1,4 +1,4 @@
-package com.example.hptouchsmart.phonedown;
+package com.silentflip.hptouchsmart.phonedown;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;

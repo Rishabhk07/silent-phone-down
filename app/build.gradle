@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        applicationId "com.example.hptouchsmart.phonedown"
+        applicationId "com.silentflip.hptouchsmart.phonedown"
         minSdkVersion 21
         targetSdkVersion 23
         versionCode 1

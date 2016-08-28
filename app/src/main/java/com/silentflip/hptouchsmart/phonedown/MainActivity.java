@@ -1,4 +1,4 @@
-package com.example.hptouchsmart.phonedown;
+package com.silentflip.hptouchsmart.phonedown;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
