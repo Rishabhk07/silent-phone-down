@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="time_names">
+        <item>0 seconds</item>
         <item>10 seconds</item>
         <item>1 min</item>
         <item>5 min</item>
@@ -11,6 +12,7 @@
     </string-array>
 
     <string-array name="time_values">
+        <item>0</item>
         <item>10000</item>
         <item>60000</item>
         <item>300000</item>
@@ -19,4 +21,24 @@
         <item>3600000</item>
         <item>7200000</item>
     </string-array>
+
+
+    <string-array name="alarm_time_names">
+        <item>5 min</item>
+        <item>10 min</item>
+        <item>15 min</item>
+        <item>30 min</item>
+        <item>1 hour</item>
+        <item>2 hour</item>
+    </string-array>
+
+    <string-array name="alarm_time_values">
+        <item>300000</item>
+        <item>600000</item>
+        <item>900000</item>
+        <item>1800000</item>
+        <item>3600000</item>
+        <item>7200000</item>
+    </string-array>
+
 </resources>

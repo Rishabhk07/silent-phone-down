@@ -70,6 +70,18 @@
             android:dependency="ALARM"
             />
 
+        <ListPreference
+            android:key="SLEEP_MODE"
+            android:title="Alarm sleep mode"
+            android:entries="@array/alarm_time_names"
+            android:entryValues="@array/alarm_time_values"
+            android:summary="alarm volume will not be silent if phone is kept upside down for sleeping, select a snooze time here (to silent alarm flip again)"
+            android:dialogTitle="enter the snooze time"
+            android:defaultValue="300000"
+            android:dependency="ALARM_RECOVERY"
+
+            />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

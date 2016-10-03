@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "TAG";
 
-    boolean DEBUG = false;
+    boolean DEBUG = true;
     public static final String MUSIC_ = "music";
     public static final String RINGTONE_ = "ringtone";
     public static final String ALARM_ = "alarm";
