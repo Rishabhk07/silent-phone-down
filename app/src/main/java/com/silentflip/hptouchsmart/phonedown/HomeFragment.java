@@ -20,7 +20,7 @@ import android.widget.ToggleButton;
  */
 public class HomeFragment extends android.app.Fragment {
 
-    boolean DEBUG = false;
+    boolean DEBUG = true;
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -35,12 +35,12 @@ public class HomeFragment extends android.app.Fragment {
         ToggleButton toggleButton = (ToggleButton) homeView.findViewById(R.id.toggleStartService);
 
         SharedPreferences checkPrefrences  = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        boolean stateCheck = checkPrefrences.getBoolean("START_CHECK" , false);
+        final boolean stateCheck = checkPrefrences.getBoolean("START_CHECK" , false);
 
         if(stateCheck){
+            startService();
             toggleButton.setChecked(true);
            if(DEBUG) Log.d("TAG" , "boolean true");
-
         }else{
             toggleButton.setChecked(false);
             if(DEBUG) Log.d("TAG" , "boolean false");
@@ -50,17 +50,12 @@ public class HomeFragment extends android.app.Fragment {
         if(DEBUG) Log.d("TAG" , "Home Fragment Called !!");
         homeView.requestLayout();
 
+
         toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
-                    Intent i = new Intent(getActivity() , screenOff.class);
-                    getActivity().startService(i);
-                    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putBoolean("START_CHECK" , true);
-                    editor.commit();
-                    if(DEBUG) Log.d("TAG" , "checked changed !! true" );
+                    startService();
                     Snackbar snackbar = Snackbar.make(homeView , "Silent Flip ON" , Snackbar.LENGTH_SHORT);
                     snackbar.show();
                 }else{
@@ -78,7 +73,22 @@ public class HomeFragment extends android.app.Fragment {
             }
         });
 
+
         return homeView;
     }
+
+
+    public void startService(){
+        Intent i = new Intent(getActivity() , screenOff.class);
+        getActivity().startService(i);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("START_CHECK" , true);
+        editor.commit();
+        if(DEBUG) Log.d("TAG" , "checked changed !! true" );
+    }
+
+
+
 
 }

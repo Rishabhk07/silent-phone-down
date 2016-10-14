@@ -32,12 +32,6 @@
             android:summary="silents phone ringtone when phone is flipped "
             android:defaultValue="true"
             />
-        <!--<CheckBoxPreference-->
-            <!--android:key="RINGTONE_RECOVERY"-->
-            <!--android:title="Ringtone Recover"-->
-            <!--android:summary="Ringtone will recover to original setting when call is ended"-->
-            <!--android:defaultValue="true"-->
-            <!--/>-->
         <ListPreference
             android:key="RING_REC"
             android:title="Ringer volume recovery"

@@ -141,7 +141,7 @@ public class screenOff extends Service implements SensorEventListener {
         }
 
 
-        if(event.values[2] < -9 && flag && (event.values[1] > -6) ){
+        if(event.values[2] < -9 && flag && (event.values[1] > -4) && (event.values[1] < 4)){
             //Log.d(TAG," on sensor changed z less than -8");
 
             if(music == true) {
