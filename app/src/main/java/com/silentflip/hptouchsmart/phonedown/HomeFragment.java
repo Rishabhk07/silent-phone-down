@@ -20,7 +20,7 @@ import android.widget.ToggleButton;
  */
 public class HomeFragment extends android.app.Fragment {
 
-    boolean DEBUG = true;
+    boolean DEBUG = false;
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -42,6 +42,7 @@ public class HomeFragment extends android.app.Fragment {
             toggleButton.setChecked(true);
            if(DEBUG) Log.d("TAG" , "boolean true");
         }else{
+            stopService();
             toggleButton.setChecked(false);
             if(DEBUG) Log.d("TAG" , "boolean false");
 
@@ -60,12 +61,7 @@ public class HomeFragment extends android.app.Fragment {
                     snackbar.show();
                 }else{
 
-                    Intent i = new Intent(getActivity() , screenOff.class );
-                    getActivity().stopService(i);
-                    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putBoolean("START_CHECK" , false);
-                    editor.commit();
+                    stopService();
                     Snackbar snackbar = Snackbar.make(homeView , "Silent Flip OFF" , Snackbar.LENGTH_SHORT);
                     if(DEBUG) Log.d("TAG" , "checked changed !! false" );
                     snackbar.show();
@@ -86,6 +82,15 @@ public class HomeFragment extends android.app.Fragment {
         editor.putBoolean("START_CHECK" , true);
         editor.commit();
         if(DEBUG) Log.d("TAG" , "checked changed !! true" );
+    }
+
+    public void stopService(){
+        Intent i = new Intent(getActivity() , screenOff.class );
+        getActivity().stopService(i);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("START_CHECK" , false);
+        editor.commit();
     }
 
 

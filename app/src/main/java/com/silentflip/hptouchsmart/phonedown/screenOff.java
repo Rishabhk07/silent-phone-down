@@ -55,9 +55,6 @@ public class screenOff extends Service implements SensorEventListener {
     @Override
     public void onCreate() {
         super.onCreate();
-
-
-
        if(DEBUG) Log.d(TAG , "Service oncreate called !! ");
     }
 
@@ -67,12 +64,13 @@ public class screenOff extends Service implements SensorEventListener {
         //Toast.makeText(screenOff.this, "Silent Flip ON", Toast.LENGTH_SHORT).show();
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        music = sharedPreferences.getBoolean("MUSIC" , false);
-        ringtone = sharedPreferences.getBoolean("RINGTONE" , false);
-        alarm = sharedPreferences.getBoolean("ALARM" , false);
-        alarm_recovery = sharedPreferences.getBoolean("ALARM_RECOVERY" , false);
-        music_recover = sharedPreferences.getBoolean("MUSIC_REC" , false);
-
+        music = sharedPreferences.getBoolean("MUSIC" , true);
+        ringtone = sharedPreferences.getBoolean("RINGTONE" , true);
+        alarm = sharedPreferences.getBoolean("ALARM" , true);
+        alarm_recovery = sharedPreferences.getBoolean("ALARM_RECOVERY" , true);
+        music_recover = sharedPreferences.getBoolean("MUSIC_REC" , true);
+        duration = Long.parseLong(sharedPreferences.getString("RING_REC", "300000"));
+        snoozeDur = Long.parseLong(sharedPreferences.getString("SLEEP_MODE" , "300000"));
         if(DEBUG){
         Log.d("MUSIC" , "value : " + music );
         Log.d("RINGTONE" , "value : " + ringtone );
@@ -115,10 +113,11 @@ public class screenOff extends Service implements SensorEventListener {
 
         if((SystemClock.uptimeMillis() - currentTime) > 1000){
             currentTime = SystemClock.uptimeMillis();
-            if(true) {
+            if(DEBUG) {
                 Log.d("x : ", "" + event.values[0]);
                 Log.d("y : ", "" + event.values[1]);
                 Log.d("z : ", "" + event.values[2]);
+                Log.d("flag: ", "" + flag );
             }
         }
 
@@ -128,34 +127,42 @@ public class screenOff extends Service implements SensorEventListener {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         boolean check = sharedPreferences.getBoolean("CHECK" , false);
 
-
+        if (DEBUG) Log.d("Alarm Recovery" , "" + alarm_recovery);
 
         if(check){
-            music = sharedPreferences.getBoolean("MUSIC" , false);
-            ringtone = sharedPreferences.getBoolean("RINGTONE" , false);
-            alarm = sharedPreferences.getBoolean("ALARM" , false);
-            alarm_recovery = sharedPreferences.getBoolean("ALARM_RECOVERY" , false);
-            music_recover = sharedPreferences.getBoolean("MUSIC_REC", false);
+            music = sharedPreferences.getBoolean("MUSIC" , true);
+            ringtone = sharedPreferences.getBoolean("RINGTONE" , true);
+            alarm = sharedPreferences.getBoolean("ALARM" , true);
+            alarm_recovery = sharedPreferences.getBoolean("ALARM_RECOVERY" , true);
+            music_recover = sharedPreferences.getBoolean("MUSIC_REC", true);
             duration = Long.parseLong(sharedPreferences.getString("RING_REC", "300000"));
             snoozeDur = Long.parseLong(sharedPreferences.getString("SLEEP_MODE" , "300000"));
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("CHECK", false);
+            editor.commit();
+            if (DEBUG) Log.d("CHECK TRUE" , "" + alarm_recovery);
         }
 
-
-        if(event.values[2] < -9 && flag && (event.values[1] > -4) && (event.values[1] < 4)){
+        if (DEBUG) Log.d("Alarm Recovery" , "" + alarm_recovery);
+        if( (event.values[2] < -9 ) && flag && (event.values[1] > -3 ) && (event.values[1] < 3) ){
             //Log.d(TAG," on sensor changed z less than -8");
-
-            if(music == true) {
+//            Log.d("music :", "" + music);
+//            Log.d("ringtone :", "" + ringtone);
+//            Log.d("alarm :", "" + alarm);
+            if(music == true && musicFlipActive == false) {
+                Log.d("MUSIC" , "MUSIC IN SENSOR OFF ");
                 if (audioManager.getStreamVolume(AudioManager.STREAM_MUSIC) > 0) {
                     musicVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
                 }
                 musicFlipActive = true;
                 audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
             }
-            if(ringtone == true){
+            if(ringtone == true && ringFlipActive == false){
 
 //                SharedPreferences.Editor editor = sharedPreferences.edit();
 //                editor.putBoolean("RING_FLIPPED"  , true);
 //                editor.commit();
+                Log.d("RINGTONE" , "Ringtone");
                 if(audioManager.getStreamVolume(AudioManager.STREAM_RING) > 0 ){
                     ringVolume = audioManager.getStreamVolume(AudioManager.STREAM_RING);
                 }
@@ -165,25 +172,20 @@ public class screenOff extends Service implements SensorEventListener {
 
             }
             if(alarm == true && alarmFlipActive == false){
-
+                Log.d("ALARM" , "ALARM");
                 if(audioManager.getStreamVolume(AudioManager.STREAM_ALARM) > 0){
                     alarmVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
                 }
-
-
-
-
                 alarmFlipActive = true;
                 audioManager.setStreamVolume(AudioManager.STREAM_ALARM , 0, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-
-
             }
         }
 
-        if(event.values[2] > 9 && flag && alarmFlipActive && alarm_recovery){
+        if(event.values[2] > 7 && flag && alarmFlipActive && alarm_recovery){
             audioManager.setStreamVolume(AudioManager.STREAM_ALARM , alarmVolume, 0);
             alarmFlipActive = false;
             alarmCurrent  =  SystemClock.uptimeMillis();
+
         }
         if(event.values[2] > 7 && flag && musicFlipActive && music_recover){
             audioManager.setStreamVolume(AudioManager.STREAM_MUSIC , musicVolume , 0);
@@ -193,14 +195,11 @@ public class screenOff extends Service implements SensorEventListener {
 
             audioManager.setStreamVolume(AudioManager.STREAM_RING , ringVolume , 0);
             ringFlipActive = false;
-
+            Log.d("Duration:","" + duration);
         }
 
-        if(event.values[2] < -9 && alarm ==true && flag && (SystemClock.uptimeMillis() - alarmCurrent ) > snoozeDur && alarmFlipActive == true){
-
-
+        if(event.values[2] < -9 && alarm ==true && flag && ((SystemClock.uptimeMillis() - alarmCurrent ) > snoozeDur) && alarmFlipActive == true && alarm_recovery){
             audioManager.setStreamVolume(AudioManager.STREAM_ALARM , alarmVolume , 0);
-
         }
 
 

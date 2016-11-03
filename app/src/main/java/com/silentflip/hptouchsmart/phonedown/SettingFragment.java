@@ -21,9 +21,14 @@ public class SettingFragment extends PreferenceFragment {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean("CHECK"  , true);
         editor.commit();
-
     }
 
-
-
+    @Override
+    public void onPause() {
+        super.onPause();
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("CHECK"  , true);
+        editor.commit();
+    }
 }

@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    >
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
    <PreferenceCategory
        android:title="Music"
        android:icon="@drawable/music"
-
        >
     <CheckBoxPreference
         android:key="MUSIC"
@@ -73,7 +71,6 @@
             android:dialogTitle="enter the snooze time"
             android:defaultValue="300000"
             android:dependency="ALARM_RECOVERY"
-
             />
 
     </PreferenceCategory>
