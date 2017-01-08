@@ -16,7 +16,7 @@ import android.util.Log;
 
 public class screenOff extends Service implements SensorEventListener {
 
-    boolean DEBUG = true;
+    boolean DEBUG = false;
     boolean music;
     boolean ringtone;
     boolean alarm;
@@ -168,6 +168,7 @@ public class screenOff extends Service implements SensorEventListener {
                 }
                 current = SystemClock.uptimeMillis();
                 audioManager.setStreamVolume(AudioManager.STREAM_RING, 0, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
                 ringFlipActive = true;
 
             }
@@ -183,24 +184,27 @@ public class screenOff extends Service implements SensorEventListener {
 
         if(event.values[2] > 7 && flag && alarmFlipActive && alarm_recovery){
             audioManager.setStreamVolume(AudioManager.STREAM_ALARM , alarmVolume, 0);
-            alarmFlipActive = false;
             alarmCurrent  =  SystemClock.uptimeMillis();
 
         }
         if(event.values[2] > 7 && flag && musicFlipActive && music_recover){
             audioManager.setStreamVolume(AudioManager.STREAM_MUSIC , musicVolume , 0);
-            musicFlipActive = false;
         }
         if(((SystemClock.uptimeMillis() - current) > duration) && ringFlipActive && flag ){
 
             audioManager.setStreamVolume(AudioManager.STREAM_RING , ringVolume , 0);
-            ringFlipActive = false;
             Log.d("Duration:","" + duration);
         }
 
         if(event.values[2] < -9 && alarm ==true && flag && ((SystemClock.uptimeMillis() - alarmCurrent ) > snoozeDur) && alarmFlipActive == true && alarm_recovery){
             audioManager.setStreamVolume(AudioManager.STREAM_ALARM , alarmVolume , 0);
         }
+
+//        if(event.values[2] > 7){
+//            ringFlipActive = false;
+//            musicFlipActive = false;
+//            alarmFlipActive = false;
+//        }
 
 
     }
