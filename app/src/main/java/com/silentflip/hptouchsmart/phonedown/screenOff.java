@@ -168,7 +168,7 @@ public class screenOff extends Service implements SensorEventListener {
                 }
                 current = SystemClock.uptimeMillis();
                 audioManager.setStreamVolume(AudioManager.STREAM_RING, 0, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+//                audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
                 ringFlipActive = true;
 
             }
@@ -185,15 +185,18 @@ public class screenOff extends Service implements SensorEventListener {
         if(event.values[2] > 7 && flag && alarmFlipActive && alarm_recovery){
             audioManager.setStreamVolume(AudioManager.STREAM_ALARM , alarmVolume, 0);
             alarmCurrent  =  SystemClock.uptimeMillis();
+            alarmFlipActive = false;
 
         }
         if(event.values[2] > 7 && flag && musicFlipActive && music_recover){
             audioManager.setStreamVolume(AudioManager.STREAM_MUSIC , musicVolume , 0);
+            musicFlipActive = false;
         }
         if(((SystemClock.uptimeMillis() - current) > duration) && ringFlipActive && flag ){
 
             audioManager.setStreamVolume(AudioManager.STREAM_RING , ringVolume , 0);
             Log.d("Duration:","" + duration);
+            ringFlipActive = false;
         }
 
         if(event.values[2] < -9 && alarm ==true && flag && ((SystemClock.uptimeMillis() - alarmCurrent ) > snoozeDur) && alarmFlipActive == true && alarm_recovery){
