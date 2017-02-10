@@ -39,11 +39,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-//        toolbar.setTitleTextColor(Color.WHITE);
+        toolbar.setTitleTextColor(Color.WHITE);
 
                 drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
                 actionBarDrawerToggle = new ActionBarDrawerToggle(this , drawerLayout  , toolbar , R.string.drawer_open , R.string.drawer_close);
-//                actionBarDrawerToggle.getDrawerArrowDrawable().setColor(Color.WHITE);
+                actionBarDrawerToggle.getDrawerArrowDrawable().setColor(Color.WHITE);
                 navigationView = (NavigationView) findViewById(R.id.navgation_view);
 
 
