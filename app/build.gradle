@@ -8,8 +8,8 @@ android {
         applicationId "com.silentflip.hptouchsmart.phonedown"
         minSdkVersion 17
         targetSdkVersion 24
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "2.0"
     }
     buildTypes {
         release {
