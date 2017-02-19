@@ -165,11 +165,13 @@ public class screenOff extends Service implements SensorEventListener {
                 if(DEBUG)Log.d("RINGTONE" , "Ringtone");
                 if(audioManager.getStreamVolume(AudioManager.STREAM_RING) > 0 ){
                     ringVolume = audioManager.getStreamVolume(AudioManager.STREAM_RING);
-                }
-                current = SystemClock.uptimeMillis();
-                audioManager.setStreamVolume(AudioManager.STREAM_RING, 0, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                    current = SystemClock.uptimeMillis();
+                    audioManager.setStreamVolume(AudioManager.STREAM_RING, 0, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
 //                audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
-                ringFlipActive = true;
+                    ringFlipActive = true;
+
+                }
+
 
             }
             if(alarm == true && alarmFlipActive == false){
