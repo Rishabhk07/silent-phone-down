@@ -11,6 +11,7 @@ import android.hardware.SensorManager;
 import android.media.AudioManager;
 import android.os.IBinder;
 import android.os.SystemClock;
+import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
@@ -197,6 +198,8 @@ public class screenOff extends Service implements SensorEventListener {
         if(((SystemClock.uptimeMillis() - current) > duration) && ringFlipActive && flag ){
 
             audioManager.setStreamVolume(AudioManager.STREAM_RING , ringVolume , 0);
+            Vibrator vibrator  = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+            vibrator.cancel();
             if(DEBUG)Log.d("Duration:","" + duration);
             ringFlipActive = false;
         }
