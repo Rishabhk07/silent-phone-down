@@ -1,10 +1,20 @@
 package com.silentflip.hptouchsmart.phonedown;
 
+import android.Manifest;
+import android.app.NotificationManager;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.ColorRes;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -38,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     AboutFragment aboutFragment;
     android.app.FragmentTransaction fragmentTransaction;
     int state = 0;
-
+    public static final int REQ_CODE = 123;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +62,19 @@ public class MainActivity extends AppCompatActivity {
         Window window = this.getWindow();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.setStatusBarColor(Color.parseColor("#212121"));
+        }
+        int isGranted = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_NOTIFICATION_POLICY);
+        Log.d(TAG, "onCreate: " + isGranted);
+        NotificationManager n = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if(n.isNotificationPolicyAccessGranted()) {
+                AudioManager audioManager = (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+                audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+            }else{
+                // Ask the user to grant access
+                Intent intent = new Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
+                startActivityForResult(intent,REQ_CODE);
+            }
         }
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -156,5 +179,8 @@ public class MainActivity extends AppCompatActivity {
         actionBarDrawerToggle.syncState();
     }
 
-
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
 }
