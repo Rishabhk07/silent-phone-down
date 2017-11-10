@@ -3,6 +3,7 @@
     package="com.silentflip.hptouchsmart.phonedown">
 
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.VIBRATE"></uses-permission>
     <application
         android:allowBackup="true"
         android:icon="@drawable/iconapp"
